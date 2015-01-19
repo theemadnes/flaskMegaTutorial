@@ -1,3 +1,12 @@
+import os
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+db_user = os.environ['DBUSER']
+db_password = os.environ['DBPASS']
+db_path = os.environ['DBPATH']
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://' + db_user + ':' + db_password + '@' + db_path
+SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'this is my secret key'
 
