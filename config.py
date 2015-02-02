@@ -18,6 +18,7 @@ ADMINS = ['you@example.com']
 
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'this is my secret key'
+POSTS_PER_PAGE = 3
 
 OPENID_PROVIDERS = [
     {'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id'},
