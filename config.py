@@ -8,13 +8,19 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://' + db_user + ':' + db_password + '@'
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
 # mail server settings
-MAIL_SERVER = 'localhost'
+'''MAIL_SERVER = 'localhost'
 MAIL_PORT = 25
 MAIL_USERNAME = None
-MAIL_PASSWORD = None
+MAIL_PASSWORD = None'''
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
 # administrator list
-ADMINS = ['you@example.com']
+ADMINS = ['alex.mattson@gmail.com']
 
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'this is my secret key'
