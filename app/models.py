@@ -1,6 +1,7 @@
 from app import db, app
 from hashlib import md5
 import sys
+import re
 
 if sys.version_info >= (3, 0):
 	enable_search = False
@@ -76,6 +77,10 @@ class User(db.Model):
 			version += 1
 		return new_nickname
 
+	@staticmethod
+	def make_valid_nickname(nickname):
+		return re.sub('[^a-zA-Z0-9_\.]', '', nickname)
+
 
 class Post(db.Model):
 
@@ -85,6 +90,7 @@ class Post(db.Model):
 	body = db.Column(db.String(140))
 	timestamp = db.Column(db.DateTime)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	language = db.Column(db.String(5))
 
 	def __repr__(self):
 		return '<Post %r>' % (self.body)

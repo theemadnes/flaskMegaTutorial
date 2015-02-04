@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -18,6 +19,12 @@ MAIL_USE_TLS = False
 MAIL_USE_SSL = True
 MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+
+# available languages
+LANGUAGES = {
+    'en': 'English',
+    'es': 'Español'
+}
 
 # administrator list
 ADMINS = ['alex.mattson@gmail.com']

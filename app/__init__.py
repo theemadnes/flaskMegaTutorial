@@ -6,6 +6,8 @@ from flask.ext.login import LoginManager
 from flask.ext.openid import OpenID
 from config import basedir, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 from .momentjs import momentjs
+from flask.ext.babel import Babel, lazy_gettext
+from flask.json import JSONEncoder
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -14,8 +16,10 @@ db = SQLAlchemy(app)
 lm = LoginManager()
 lm.init_app(app)
 lm.login_view = 'login'
+lm.login_message = lazy_gettext('Please log in to access this page.')
 oid = OpenID(app, os.path.join(basedir, 'tmp'))
 app.jinja_env.globals['momentjs'] = momentjs
+babel = Babel(app)
 
 from app import views, models
 
@@ -39,4 +43,16 @@ if not app.debug:
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
     app.logger.info('microMega startup')
+
+class CustomJSONEncoder(JSONEncoder):
+    def default(self, obj):
+        from speaklater import is_lazy_string
+        if is_lazy_string(obj):
+            try:
+                return unicode(obj)
+            except NameError:
+                return str(obj)
+        return super(CustomJSONEncoder, self).default(obj)
+
+app.json_encoder = CustomJSONEncoder
 
